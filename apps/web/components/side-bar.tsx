@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { House, ArrowLeftRight, Clock9 } from "lucide-react";
+import { House, ArrowLeftRight, Clock9, ArrowUpRight } from "lucide-react";
 
 const links = [
   { name: "Home", href: "/dashboard", icon: <House /> },
@@ -8,6 +8,8 @@ const links = [
   { name: "Transfer", href: "/transfer", icon: <ArrowLeftRight /> },
 
   { name: "Transactions", href: "/transactions", icon: <Clock9 /> },
+
+  { name: "P2P Transfer", href: "/p2p", icon: <ArrowUpRight /> },
 ];
 
 const SideBar = () => {

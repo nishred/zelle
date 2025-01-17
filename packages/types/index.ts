@@ -14,3 +14,11 @@ export const onRampTransactionSchema = z
   .refine((data) => {
     return data.bank === "hdfc" || data.bank === "axis";
   });
+
+
+export const p2pTransferSchema = z.object({
+
+  number: z.string().length(10),
+  amount: z.coerce.number().int().transform((value) => value*100)
+
+})  
