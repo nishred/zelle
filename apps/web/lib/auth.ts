@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 
 import Credentials from "next-auth/providers/credentials";
 
-import { prisma } from "@repo/db/prisma";
+import prisma from "@repo/db/prisma";
 
 import { compareSync, hashSync } from "bcrypt-ts-edge";
 
@@ -49,12 +49,22 @@ const authConfig = {
         }
 
         try {
+
+
+        const newUser =   await prisma.$transaction(async (tx) => {
+
+
           const newUser = await prisma.user.create({
             data: {
               number,
               password: hashSync(password, 10),
             },
           });
+
+
+           return newUser
+
+        })
 
           return {
             id: newUser.id.toString(),
@@ -87,3 +97,5 @@ export const {
   signOut,
   handlers: { GET, POST },
 } = NextAuth(authConfig);
+
+

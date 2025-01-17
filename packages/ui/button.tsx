@@ -15,10 +15,12 @@ const Button = ({
   children,
   onClick,
   variant,
+  type = "button",
 }: {
   children: React.ReactNode;
   onClick?: () => void;
   variant?: string;
+  type?: "submit" | "button" | "reset";
 }) => {
   const color =
     variant === "success"
@@ -29,7 +31,7 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      type="button"
+      type={type}
       className={clsx(
         "focus:outline-none text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2",
         buttonVariants[color]
