@@ -22,7 +22,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .     # where your application code is
-        file: ./docker/Dockerfile  # the location of the docker file
+        file: ./docker/Dockerfile.user  # the location of the docker file
         push: true
         tags: nishanthredde/zelle-user-app  # Replace with your Docker Hub username and repository
 
