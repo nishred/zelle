@@ -1,0 +1,56 @@
+=> . files in linux systems are hidden files
+
+=> you want to store the history of the project in .git
+
+=> ls -a // show all hidden files
+=> git add . // everything in the current directory
+
+=> git restore --staged names.txt // remove files from the staging area
+
+=> git log // see commit history
+
+=> git reset <commit-hash> // go back to the commit
+
+=> currently I have made few changes. and did git add .
+
+but i dont want to commit it and also I dont want to lose all these changes. 
+
+go to backstage and whenever I want, I will bring you back
+
+git stash
+
+=> git stash pop
+
+=> git stash clear   // clear the stash
+  
+=> we want the url to be attached to the local project
+
+git remote add origin <url>
+
+origin is the name of the url
+
+=> git remote -v
+
+will log all the urls attached to the local folder
+
+=> git push origin master
+
+=> whenever you are creating a new feature or solving a bug, always create a new branch
+
+=> git branch feature
+
+=> head is just a pointer, that points to a branch, which says all the current commits that you make will be added to the branch to which the head is poiting to.
+
+=>  git merge feature
+
+=> when you create your own copy and make a change in that copy and how do you request what ever change you have made in your own copy reflected in the main project? you request it via a  pull request.
+
+when it is merged, what ever changed you have made in your own branch in your fork will be reflected in the main project's main branch
+
+=> if you have a branch associated with a pull reuquest, another pull request cant be made using the same branch. All the commits you make will be associated to that pull request only
+
+=> one branch means one PR
+
+one branch can only open one pull request
+
+=> only one branch can actually open a PR
