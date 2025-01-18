@@ -43,3 +43,4 @@ jobs:
           sudo docker stop zelle-user-app || true
           sudo docker rm zelle-user-app || true
           sudo docker run -d --name zelle-user-app -p 3005:3000 nishanthredde/zelle-user-app:latest
+
