@@ -4,7 +4,7 @@ import SideBar from "../../components/side-bar";
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   await new Promise((resolve) => {
-    setTimeout(resolve, 3000);
+    setTimeout(resolve, 2000);
   });
 
   return (
