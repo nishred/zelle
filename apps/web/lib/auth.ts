@@ -6,7 +6,20 @@ import prisma from "@repo/db/prisma";
 
 import { compareSync, hashSync } from "bcrypt-ts-edge";
 
-const authConfig = {
+import { User } from "next-auth";
+
+import { NextAuthResult } from "next-auth";
+
+import { NextAuthConfig } from "next-auth";
+
+// export interface User {
+//   id?: string;
+//   name?: string | null;
+//   email?: string | null;
+//   image?: string | null;
+// }
+
+const authConfig: NextAuthConfig = {
   providers: [
     Credentials({
       credentials: {
@@ -22,19 +35,21 @@ const authConfig = {
         },
       },
 
-      async authorize(credentials: { number: string; password: string }) {
+      async authorize(
+        credentials: Partial<Record<"number" | "password", unknown>>
+      ) {
         if (credentials === null) return null;
 
         const { number, password } = credentials;
 
         const user = await prisma.user.findFirst({
           where: {
-            number,
+            number: number as string,
           },
         });
 
         if (user) {
-          const isMatch = compareSync(password, user.password);
+          const isMatch = compareSync(password as string, user.password);
 
           if (!isMatch) {
             return null;
@@ -42,50 +57,46 @@ const authConfig = {
 
           return {
             id: user.id.toString(),
-            number: user.number,
-            name: user.name,
-            email: user.email,
+            image: null,
+            name: user.name ? user.email : null,
+            email: user.email ? user.email : null,
           };
         }
 
         try {
+          const newUser = await prisma.$transaction(async (tx) => {
+            const newUser = await prisma.user.create({
+              data: {
+                number: number as string,
+                password: hashSync(password as string, 10),
+              },
+            });
 
-
-        const newUser =   await prisma.$transaction(async (tx) => {
-
-
-          const newUser = await prisma.user.create({
-            data: {
-              number,
-              password: hashSync(password, 10),
-            },
+            return newUser;
           });
-
-
-           return newUser
-
-        })
 
           return {
             id: newUser.id.toString(),
-            number: newUser.number,
             name: newUser.name,
             email: newUser.email,
+            image: null,
           };
         } catch (err) {
           console.log(err);
+          return null;
         }
       },
     }),
   ],
   callbacks: {
-    authorized({ auth, request }) {
+    authorized({ auth }) {
       console.log("authorized control");
 
       return !!auth?.user;
     },
+
     async session({ session, token }) {
-      session.user.id = token.sub;
+      session.user.id = token.sub as string;
       return session;
     },
   },
@@ -96,6 +107,4 @@ export const {
   signIn,
   signOut,
   handlers: { GET, POST },
-} = NextAuth(authConfig);
-
-
+}: NextAuthResult = NextAuth(authConfig);

@@ -6,7 +6,7 @@ const HomePage = () => {
   const { data: session } = useSession();
 
   const handleSignIn = () => {
-    signIn(null, { redirectTo: "/" });
+    signIn(undefined, { redirectTo: "/" });
   };
 
   const handleSignOut = () => {
