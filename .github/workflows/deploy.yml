@@ -42,5 +42,6 @@ jobs:
           sudo docker pull nishanthredde/zelle-user-app:latest
           sudo docker stop zelle-user-app || true
           sudo docker rm zelle-user-app || true
-          sudo docker run -d --name zelle-user-app -e NEXTAUTH_URL=${{secrets.NEXTAUTH_URL}} NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}} -p 3005:3000 nishanthredde/zelle-user-app:latest
+          sudo docker run -d --name zelle-user-app -e NEXTAUTH_URL=${{secrets.NEXTAUTH_URL}} -e NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}} -p 3005:3000 nishanthredde/zelle-user-app:latest
+
 
