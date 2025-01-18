@@ -2,9 +2,10 @@ import { auth } from "../../lib/auth";
 import UserAppBar from "../../components/user-app-bar";
 import SideBar from "../../components/side-bar";
 
-
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-
+  await new Promise((resolve) => {
+    setTimeout(resolve, 2000);
+  });
 
   return (
     <div className="grid grid-rows-[auto_1fr] grid-cols-5 min-h-screen bg-slate-200">
@@ -24,7 +25,3 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 };
 
 export default RootLayout;
-
-
-
-
